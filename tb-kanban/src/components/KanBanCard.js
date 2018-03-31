@@ -1,4 +1,5 @@
 import React from "react";
+import Proptypes from "prop-types";
 
 const card = {
   height: 30,
@@ -8,6 +9,9 @@ const card = {
 
 const KanBanCard = ({ message }) => {
   return <div style={card}>{message}</div>;
+};
+KanBanCard.proptypes = {
+  message: Proptypes.string.isRequired
 };
 
 export default KanBanCard;
