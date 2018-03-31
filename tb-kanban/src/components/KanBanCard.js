@@ -1,14 +1,15 @@
 import React from "react";
 import Proptypes from "prop-types";
+import styled from "styled-components";
 
-const card = {
-  height: 30,
-  backgroundColor: "ivory",
-  margin: 5
-};
+const Card = styled.div`
+  height: 30px;
+  background-color: #1683fb;
+  margin: 5px;
+`;
 
 const KanBanCard = ({ message }) => {
-  return <div style={card}>{message}</div>;
+  return <Card>{message}</Card>;
 };
 KanBanCard.proptypes = {
   message: Proptypes.string.isRequired

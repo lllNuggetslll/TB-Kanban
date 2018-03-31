@@ -1,25 +1,28 @@
 import React from "react";
 import Proptypes from "prop-types";
+import styled from "styled-components";
 
 const COLORS = ["#8e6e95", "#39a59c", "#344759", "#e8741e"];
 
-const header = columnIndex => ({
-  height: 30,
-  backgroundColor: columnIndex === null ? "black" : COLORS[columnIndex],
-  width: "100%",
-  textAlign: "center",
-  color: "white",
-  lineHeight: 2
-});
+const Header = styled.div`
+  height: 30px;
+  background-color: ${props =>
+    props.columnIndex === null ? "white" : COLORS[props.columnIndex]};
+  width: 100%;
+  text-align: center;
+  color: "white";
+  line-height: 30px;
+  border: ${props => props.columnIndex === null && "1px dotted black;"};
+`;
 
 const KanBanColumnHeader = ({ name, columnIndex, addColumn }) => {
   return (
-    <div
-      style={header(columnIndex)}
+    <Header
+      columnIndex={columnIndex}
       onClick={() => addColumn && addColumn(window.prompt("Enter Name"))}
     >
       {name}
-    </div>
+    </Header>
   );
 };
 KanBanColumnHeader.proptypes = {

@@ -1,17 +1,18 @@
 import React from "react";
 import Proptypes from "prop-types";
+import styled from "styled-components";
 
 import KanBanColumnHeader from "./KanBanColumnHeader";
 import KanBanCard from "./KanBanCard";
 
-const columnContainer = {
-  padding: 12.5,
-  width: "25%"
-};
+const ColumnContainer = styled.div`
+  padding: 12.5px;
+  width: 25%;
+`;
 
 const KanBanColumn = ({ name, columnIndex, addColumn, cards, addCard }) => {
   return (
-    <div style={columnContainer}>
+    <ColumnContainer>
       <KanBanColumnHeader
         name={name}
         columnIndex={columnIndex}
@@ -26,7 +27,7 @@ const KanBanColumn = ({ name, columnIndex, addColumn, cards, addCard }) => {
           + card
         </div>
       )}
-    </div>
+    </ColumnContainer>
   );
 };
 KanBanColumn.proptypes = {

@@ -2,9 +2,15 @@ import React from "react";
 import Proptypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import styled from "styled-components";
 
 import KanBanColumn from "./KanBanColumn";
 import * as actions from "../actions/kanBanActions";
+
+const Container = styled.div`
+  display: flex;
+  padding: 12.5px;
+`;
 
 const container = {
   display: "flex",
