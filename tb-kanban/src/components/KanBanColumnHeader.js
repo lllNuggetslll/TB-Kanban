@@ -30,7 +30,6 @@ const KanBanColumnHeader = ({
 KanBanColumnHeader.proptypes = {
   columnName: Proptypes.string.isRequired,
   columnIndex: Proptypes.number.isRequired,
-  columnIndex: Proptypes.number.isRequired,
   addColumn: Proptypes.func.isRequired
 };
 
