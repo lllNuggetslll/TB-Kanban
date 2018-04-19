@@ -12,14 +12,13 @@ const Container = styled.div`
   padding: 12.5px;
 `;
 
-const container = {
-  display: "flex",
-  padding: 12.5
-};
-
 class KanBanContainer extends React.Component {
   handleAddColumn = name => {
     name && this.props.actions.addColumn(name);
+  };
+
+  handleMoveCard = (cardIndex, currentColumn, targetColumn) => {
+    this.props.actions.moveCard(cardIndex, currentColumn, targetColumn);
   };
 
   handleAddCard = (text, index) => {
@@ -28,41 +27,37 @@ class KanBanContainer extends React.Component {
 
   render() {
     const { columns } = this.props;
-    const addColumn = () => (
-      <KanBanColumn
-        name={"Add Column"}
-        addColumn={this.handleAddColumn}
-        columnIndex={null}
-      />
-    );
 
     return (
-      <div style={container}>
+      <Container>
         {columns.map((column, index) => {
-          const { name, cards } = column;
+          const { columnName, columnColor, cards } = column;
+
           return (
             <KanBanColumn
               key={index}
-              name={name}
+              columnName={columnName}
+              columnColor={columnColor}
               cards={cards}
               columnIndex={index}
               addCard={this.handleAddCard}
+              moveCard={this.handleMoveCard}
             />
           );
         })}
-        {columns.length < 4 && addColumn()}
-      </div>
+      </Container>
     );
   }
 }
 KanBanContainer.proptypes = {
   columns: Proptypes.shape({
-    name: Proptypes.string.isRequired,
+    columnName: Proptypes.string.isRequired,
+    columnColor: Proptypes.string.isRequired,
     cards: Proptypes.array.isRequired
   }),
   actions: Proptypes.shape({
-    addColumn: Proptypes.func.isRequired,
-    addCard: Proptypes.func.isRequired
+    addCard: Proptypes.func.isRequired,
+    moveCard: Proptypes.func.isRequired
   })
 };
 

@@ -10,32 +10,50 @@ const ColumnContainer = styled.div`
   width: 25%;
 `;
 
-const KanBanColumn = ({ name, columnIndex, addColumn, cards, addCard }) => {
-  return (
-    <ColumnContainer>
-      <KanBanColumnHeader
-        name={name}
-        columnIndex={columnIndex}
-        addColumn={addColumn}
-      />
-      {cards &&
-        cards.map((message, index) => {
-          return <KanBanCard key={index} message={message} />;
-        })}
-      {columnIndex !== null && (
-        <div onClick={() => addCard(window.prompt("add card"), columnIndex)}>
-          + card
-        </div>
-      )}
-    </ColumnContainer>
-  );
-};
-KanBanColumn.proptypes = {
-  name: Proptypes.string.isRequired,
-  columnIndex: Proptypes.number,
-  addColumn: Proptypes.func.isRequired,
-  cards: Proptypes.array,
-  addCard: Proptypes.func.isRequired
-};
+export default class KanBanColumn extends React.Component {
+  render() {
+    const {
+      columnName,
+      columnColor,
+      columnIndex,
+      cards,
+      addCard,
+      moveCard
+    } = this.props;
 
-export default KanBanColumn;
+    return (
+      <ColumnContainer>
+        <KanBanColumnHeader
+          columnName={columnName}
+          columnColor={columnColor}
+          columnIndex={columnIndex}
+        />
+        {cards &&
+          cards.map((message, index) => {
+            return (
+              <KanBanCard
+                key={index}
+                message={message}
+                moveCard={moveCard}
+                columnIndex={columnIndex}
+                cardIndex={index}
+              />
+            );
+          })}
+        {columnIndex !== null && (
+          <div onClick={() => addCard(window.prompt("add card"), columnIndex)}>
+            + card
+          </div>
+        )}
+      </ColumnContainer>
+    );
+  }
+}
+KanBanColumn.proptypes = {
+  columnName: Proptypes.string.isRequired,
+  columnColor: Proptypes.string.isRequired,
+  columnIndex: Proptypes.number,
+  cards: Proptypes.array,
+  addCard: Proptypes.func.isRequired,
+  moveCard: Proptypes.func.isRequired
+};

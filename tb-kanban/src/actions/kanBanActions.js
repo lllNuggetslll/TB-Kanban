@@ -10,13 +10,13 @@ export const addCard = (text, columnIndex) => {
   };
 };
 
-export const moveCard = (text, prevColumn, nextColumn) => {};
-
-export const removeCard = (text, column) => {};
-
-export const addColumn = name => {
+export const moveCard = (cardIndex, prevColumn, nextColumn) => {
   return {
-    type: types.ADD_COLUMN,
-    payload: name
+    type: types.MOVE_CARD,
+    payload: {
+      cardIndex,
+      prevColumn,
+      nextColumn
+    }
   };
 };
