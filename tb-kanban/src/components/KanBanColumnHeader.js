@@ -11,6 +11,17 @@ const Header = styled.div`
   line-height: 30px;
 `;
 
+const header = columnIndex => ({
+  height: 30,
+  backgroundColor: colors[columnIndex],
+  width: "100%",
+  textAlign: "center",
+  color: "white",
+  lineHeight: 2
+});
+
+const KanBanColumnHeader = ({ name, columnIndex }) => {
+  return <div style={header(columnIndex)}>{name}</div>;
 const KanBanColumnHeader = ({
   columnName,
   columnColor,
@@ -29,7 +40,6 @@ const KanBanColumnHeader = ({
 };
 KanBanColumnHeader.proptypes = {
   columnName: Proptypes.string.isRequired,
-  columnIndex: Proptypes.number.isRequired,
   columnIndex: Proptypes.number.isRequired,
   addColumn: Proptypes.func.isRequired
 };
