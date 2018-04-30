@@ -5,24 +5,34 @@ import { bindActionCreators } from "redux";
 import styled from "styled-components";
 
 import KanBanColumn from "./KanBanColumn";
-import * as actions from "../actions/kanBanActions";
+import { moveCard, addCard } from "../actions/kanBanActions";
 
 const Container = styled.div`
+  margin: auto;
+  width: auto;
+  height: 2000px;
+  background-color: yellow;
+`;
+
+const ColumnContainer = styled.div`
   display: flex;
   padding: 12.5px;
 `;
 
-class KanBanContainer extends React.Component {
-  handleAddColumn = name => {
-    name && this.props.actions.addColumn(name);
-  };
+const Title = styled.div`
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  padding: 25px;
+`;
 
+class KanBanContainer extends React.Component {
   handleMoveCard = (cardIndex, currentColumn, targetColumn) => {
-    this.props.actions.moveCard(cardIndex, currentColumn, targetColumn);
+    this.props.moveCard(cardIndex, currentColumn, targetColumn);
   };
 
   handleAddCard = (text, index) => {
-    text && this.props.actions.addCard(text, index);
+    text && this.props.addCard(text, index);
   };
 
   render() {
@@ -30,21 +40,24 @@ class KanBanContainer extends React.Component {
 
     return (
       <Container>
-        {columns.map((column, index) => {
-          const { columnName, columnColor, cards } = column;
+        <Title>Kan Ban</Title>
+        <ColumnContainer>
+          {columns.map((column, index) => {
+            const { columnName, columnColor, cards } = column;
 
-          return (
-            <KanBanColumn
-              key={index}
-              columnName={columnName}
-              columnColor={columnColor}
-              cards={cards}
-              columnIndex={index}
-              addCard={this.handleAddCard}
-              moveCard={this.handleMoveCard}
-            />
-          );
-        })}
+            return (
+              <KanBanColumn
+                key={index}
+                columnName={columnName}
+                columnColor={columnColor}
+                cards={cards}
+                columnIndex={index}
+                addCard={this.handleAddCard}
+                moveCard={this.handleMoveCard}
+              />
+            );
+          })}
+        </ColumnContainer>
       </Container>
     );
   }
@@ -55,10 +68,8 @@ KanBanContainer.proptypes = {
     columnColor: Proptypes.string.isRequired,
     cards: Proptypes.array.isRequired
   }),
-  actions: Proptypes.shape({
-    addCard: Proptypes.func.isRequired,
-    moveCard: Proptypes.func.isRequired
-  })
+  addCard: Proptypes.func.isRequired,
+  moveCard: Proptypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -67,10 +78,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(KanBanContainer);
+export default connect(mapStateToProps, { moveCard, addCard })(KanBanContainer);
