@@ -8,8 +8,22 @@ import KanBanColumn from "./KanBanColumn";
 import { moveCard, addCard } from "../actions/kanBanActions";
 
 const Container = styled.div`
+  margin: auto;
+  width: auto;
+  height: 2000px;
+  background-color: yellow;
+`;
+
+const ColumnContainer = styled.div`
   display: flex;
   padding: 12.5px;
+`;
+
+const Title = styled.div`
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  padding: 25px;
 `;
 
 class KanBanContainer extends React.Component {
@@ -26,21 +40,24 @@ class KanBanContainer extends React.Component {
 
     return (
       <Container>
-        {columns.map((column, index) => {
-          const { columnName, columnColor, cards } = column;
+        <Title>Kan Ban</Title>
+        <ColumnContainer>
+          {columns.map((column, index) => {
+            const { columnName, columnColor, cards } = column;
 
-          return (
-            <KanBanColumn
-              key={index}
-              columnName={columnName}
-              columnColor={columnColor}
-              cards={cards}
-              columnIndex={index}
-              addCard={this.handleAddCard}
-              moveCard={this.handleMoveCard}
-            />
-          );
-        })}
+            return (
+              <KanBanColumn
+                key={index}
+                columnName={columnName}
+                columnColor={columnColor}
+                cards={cards}
+                columnIndex={index}
+                addCard={this.handleAddCard}
+                moveCard={this.handleMoveCard}
+              />
+            );
+          })}
+        </ColumnContainer>
       </Container>
     );
   }
