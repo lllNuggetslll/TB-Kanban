@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import styled from "styled-components";
 
 import KanBanColumn from "./KanBanColumn";
-import * as actions from "../actions/kanBanActions";
+import { moveCard, addCard } from "../actions/kanBanActions";
 
 const Container = styled.div`
   display: flex;
@@ -13,16 +13,12 @@ const Container = styled.div`
 `;
 
 class KanBanContainer extends React.Component {
-  handleAddColumn = name => {
-    name && this.props.actions.addColumn(name);
-  };
-
   handleMoveCard = (cardIndex, currentColumn, targetColumn) => {
-    this.props.actions.moveCard(cardIndex, currentColumn, targetColumn);
+    this.props.moveCard(cardIndex, currentColumn, targetColumn);
   };
 
   handleAddCard = (text, index) => {
-    text && this.props.actions.addCard(text, index);
+    text && this.props.addCard(text, index);
   };
 
   render() {
@@ -55,10 +51,8 @@ KanBanContainer.proptypes = {
     columnColor: Proptypes.string.isRequired,
     cards: Proptypes.array.isRequired
   }),
-  actions: Proptypes.shape({
-    addCard: Proptypes.func.isRequired,
-    moveCard: Proptypes.func.isRequired
-  })
+  addCard: Proptypes.func.isRequired,
+  moveCard: Proptypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -67,10 +61,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(KanBanContainer);
+export default connect(mapStateToProps, { moveCard, addCard })(KanBanContainer);
